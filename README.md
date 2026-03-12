@@ -58,10 +58,10 @@ IP Address of ESP32 can be found in the monitor section after connection. **STEP
 ### 1. Test Output
 Update your credentials in `test_udp.py`:
 
-Value Type,Recommended Safe Range,Precision Notes
-High Precision,"-999,999 to 999,999",Accurate to 2+ decimal places.
-Standard Precision,"±16,777,216",Accurate to the whole number only.
-Scientific Max,±3.4 × 10³⁸,"Extreme range, but will have significant rounding."
+|Value Type| Recommended Safe Range|Precision Notes |
+|High Precision| -999,999 to 999,999 | Accurate to 2+ decimal places|
+|Standard Precision|,"±16,777,216"|Accurate to the whole number only|
+|Scientific Max|,±3.4 × 10³⁸ |Extreme range, but will have significant rounding|
 
 ```c
 send_binary(msg_type=1, float_value=xx.xx)
