@@ -35,8 +35,8 @@ The system communicates using a fixed length frame. The C struct is packed using
 Update your credentials in `main/wifi_helper.c`:
 ```c
 .sta = {
-.ssid = " SSID ",
-.password = " Password",
+  .ssid = " SSID ",
+  .password = " Password",
 ```
 Code above found at lines 53 and 54
 
