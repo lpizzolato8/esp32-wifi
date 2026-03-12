@@ -52,13 +52,15 @@ void wifi_init_sta(void) {
         .sta = {
             .ssid = "The Glitch",
             .password = "Lotsofheart",
-            .threshold.authmode = WIFI_AUTH_WPA3_PSK,
-           // .pmf_cfg = { .capable = true, .required = false }, // WPA2
-           .sae_pwe_h2e = WPA3_SAE_PWE_BOTH, //WPA3
+
+            //for both
+            .threshold.authmode = WIFI_AUTH_WPA2_PSK,
+
+           .sae_pwe_h2e = WPA3_SAE_PWE_BOTH, //WPA3 support
 
            .pmf_cfg = {
-            .capable = true,
-            .required = true  // WPA3 strictly requires PMF
+            .capable = true,    // PMF for WPA3
+            .required = false   // No need for WPA2
         },
         },
     };
