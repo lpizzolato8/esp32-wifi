@@ -34,17 +34,20 @@ The system communicates using a fixed length frame. The C struct is packed using
 
 Update your credentials in `main/wifi_helper.c`:
 ```c
-#define ESP_WIFI_SSID      "Your_SSID"
-#define ESP_WIFI_PASS      "Your_Password"
+.sta = {
+            .ssid = " SSID ",
+            .password = " Password",
 ```
-Code above found at lines 6 and 7
+Code above found at lines 53 and 54
 
 Update the credentials of the ESP32 in `test_udp.py`:
 ```c
 ESP32_IP = "192.168.x.xxx" 
 PORT = 3333
 ```
+Code above found at lines 6 and 7
 
+IP Address of ESP32 can be found in the monitor section after connection. **STEP 4.**
 <img width="681" height="35" alt="image" src="https://github.com/user-attachments/assets/ae6445ea-81d3-4479-98b6-999543d33228" />
 
 
