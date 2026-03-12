@@ -32,6 +32,8 @@ The system communicates using a fixed length frame. The C struct is packed using
 
 ### 2. Configure Wi-Fi and IP
 
+a. 
+
 Update your credentials in `main/wifi_helper.c`:
 ```c
 .sta = {
@@ -39,6 +41,8 @@ Update your credentials in `main/wifi_helper.c`:
             .password = " Password",
 ```
 Code above found at lines 53 and 54
+
+b. 
 
 Update the credentials of the ESP32 in `test_udp.py`:
 ```c
