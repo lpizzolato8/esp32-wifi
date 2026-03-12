@@ -68,8 +68,11 @@ For float values (I used float to test)
 |Scientific Max    | ±3.4 × 10³⁸           |Extreme range, but will have significant rounding|
 
 If you want to use others, then change `msg_type = ` to 2 or 3.
+
 type 1 = float 
+
 type 2 = int 
+
 type 3 = char array
     
 ```c
