@@ -52,6 +52,7 @@ Code above found at lines 6 and 7
 IP Address of ESP32 can be found in the monitor section after connection. **STEP 4.**
 
 Ex.
+
 <img width="681" height="35" alt="image" src="https://github.com/user-attachments/assets/ae6445ea-81d3-4479-98b6-999543d33228" />
 
 ## Running and Testing
