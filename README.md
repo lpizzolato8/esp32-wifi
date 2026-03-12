@@ -1,18 +1,9 @@
 # ESP32 UDP Binary Receiver
-
-A lightweight, high-performance UDP server for the ESP32 (ESP-IDF) designed to receive and parse raw binary data. This project features a robust custom-framed protocol with **WPA3-SAE** support and data integrity validation.
-
-## 🚀 Features
-- **Custom Binary Protocol**: Uses packed C structs to eliminate memory padding and minimize overhead.
-- **WPA3 & WPA2 Support**: Configured for modern Wi-Fi security (SAE/PMF) while maintaining backward compatibility.
-- **Data Integrity**: Implements a Sync Word (`0xAA55`) and 16-bit Checksum to ensure packets are complete and uncorrupted.
-- **Non-Blocking Task**: Runs as a background FreeRTOS task, allowing the main application to handle other logic.
-
 ---
 
-## 🛠 Binary Protocol Definition
+## Binary Protocol Definition
 
-The system communicates using a fixed-length frame. The C struct is packed using `#pragma pack(1)` to ensure the byte alignment matches exactly between Python (sender) and C (receiver).
+The system communicates using a fixed length frame. The C struct is packed using `#pragma pack(1)` to ensure the byte alignment matches exactly between Python (sender) and C (receiver).
 
 | Field         | Type       | Size     | Description                                     |
 |--------------|------------|----------|-------------------------------------------------|
@@ -39,7 +30,8 @@ The system communicates using a fixed-length frame. The C struct is packed using
 - ESP-IDF v5.x+
 - Python 3.x
 
-### 2. Configure Wi-Fi
+### 2. Configure Wi-Fi and IP
+
 Update your credentials in `main/wifi_helper.c`:
 ```c
 #define ESP_WIFI_SSID      "Your_SSID"
@@ -47,9 +39,27 @@ Update your credentials in `main/wifi_helper.c`:
 ```
 Code above found at lines 6 and 7
 
+Update the credentials of the ESP32 in `test_udp.py`:
+```c
+ESP32_IP = "192.168.x.xxx" 
+PORT = 3333
+```
+
+<img width="681" height="35" alt="image" src="https://github.com/user-attachments/assets/ae6445ea-81d3-4479-98b6-999543d33228" />
+
+
+
 ### 3. Build and Flash ESP32
+
+Build using the wrench and flash using the lighting bolt
 <img width="110" height="41" alt="image" src="https://github.com/user-attachments/assets/746bfac0-9bb8-45ff-bb03-de168acd696f" />
 
 ### 4. Run python and Monitor ESP32
 
+Run the python script and click on the monitor below to see the output
+<img width="67" height="44" alt="image" src="https://github.com/user-attachments/assets/72e6bad2-b273-4001-8c54-63649045aa8e" />
+
+### 5. Results
+
+<img width="785" height="43" alt="image" src="https://github.com/user-attachments/assets/9276ad48-bbbe-4808-bb3f-fbc94b3e041d" />
 
