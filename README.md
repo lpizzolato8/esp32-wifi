@@ -48,18 +48,19 @@ PORT = 3333
 Code above found at lines 6 and 7
 
 IP Address of ESP32 can be found in the monitor section after connection. **STEP 4.**
+
 <img width="681" height="35" alt="image" src="https://github.com/user-attachments/assets/ae6445ea-81d3-4479-98b6-999543d33228" />
-
-
 
 ### 3. Build and Flash ESP32
 
 Build using the wrench and flash using the lighting bolt
+
 <img width="110" height="41" alt="image" src="https://github.com/user-attachments/assets/746bfac0-9bb8-45ff-bb03-de168acd696f" />
 
 ### 4. Run python and Monitor ESP32
 
 Run the python script and click on the monitor below to see the output
+
 <img width="67" height="44" alt="image" src="https://github.com/user-attachments/assets/72e6bad2-b273-4001-8c54-63649045aa8e" />
 
 ### 5. Results
