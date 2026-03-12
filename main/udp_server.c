@@ -17,7 +17,7 @@ static const char *TAG = "udp_server";
 
 void udp_receive_task(void *pvParameters) {
     
-    char rx_buffer[RX_BUFFER_SIZE];                // Allocates an array of 128 bytes to store the payload of incoming UDP packets
+    uint8_t rx_buffer[sizeof(binary_frame_t) + 10];
     struct sockaddr_in dest_addr;                  // Declares a structure (IPv4 address,port info)      
 
     dest_addr.sin_addr.s_addr = htonl(INADDR_ANY); // Configures the socket to listen on all available network interfaces
@@ -49,44 +49,32 @@ void udp_receive_task(void *pvParameters) {
             int len = recvfrom(sock, rx_buffer, sizeof(rx_buffer) - 1, 0, (struct sockaddr *)&source_addr, &socklen);
 
             if (len < 0) {                                                          //network error???
-                ESP_LOGE(TAG, "recvfrom failed: errno %d", errno);
+                ESP_LOGE(TAG, "recvfrom failed: errno %d", errno);                  
                 break;
-            } else {
-                rx_buffer[len] = 0;
-                // Optimization: Avoid printf in high-speed loops; use ESP_LOG
-                ESP_LOGI(TAG, "Received: %s", rx_buffer);
+            } 
+            
+            // check if we received enough bytes to at least fill our struct
+            if (len >= sizeof(binary_frame_t)) {
+                
+                // Map the buffer memory directly onto our struct
+                binary_frame_t *pkg = (binary_frame_t *)rx_buffer;
+
+                // Step 1: Check for the Sync Word. 
+                // Note: 0xAA55 in Python might arrive as 0x55AA due to "Endianness"
+                if (pkg->sync_word == 0xAA55 || pkg->sync_word == 0x55AA) {
+                    
+                    // Step 2: Extract data. 
+                    // Since it's binary, we use memcpy to copy bytes into a variable.
+                    float val;
+                    memcpy(&val, pkg->payload, sizeof(float));
+                    
+                    ESP_LOGI(TAG, "Valid Packet Type: %d, Data: %.2f", pkg->type, val);
+                } else {
+                    ESP_LOGW(TAG, "Received junk or wrong sync word: 0x%04X", pkg->sync_word);
+                }
             }
         }
-
-        if (sock != -1) {                                                           // cleans if inner loops return an error
-            shutdown(sock, 0);
-            close(sock);
-        }
+        // Cleanup if the inner loop fails
+        close(sock);
     }
-}
-
-int send_framed_binary(int sock, struct sockaddr_in *dest_addr, uint8_t msg_id, const uint8_t *payload, uint16_t length) {
-    size_t total_size = sizeof(binary_frame_header_t) + length;
-    uint8_t *tx_buffer = (uint8_t *)malloc(total_size);
-    
-    if (tx_buffer == NULL) {
-        return -1; 
-    }
-
-    binary_frame_header_t *header = (binary_frame_header_t *)tx_buffer;
-    header->magic_bytes = htons(FRAME_MAGIC); 
-    header->message_id = msg_id;
-    header->payload_len = htons(length); 
-
-    if (payload != NULL && length > 0) {
-        memcpy(tx_buffer + sizeof(binary_frame_header_t), payload, length);
-    }
-
-    // Prints the binary buffer to the monitor in hexadecimal format
-    esp_log_buffer_hex(TAG, tx_buffer, total_size);
-
-    int err = sendto(sock, tx_buffer, total_size, 0, (struct sockaddr *)dest_addr, sizeof(*dest_addr));
-    free(tx_buffer);
-
-    return err;
 }

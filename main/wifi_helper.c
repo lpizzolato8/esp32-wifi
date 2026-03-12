@@ -50,10 +50,16 @@ void wifi_init_sta(void) {
 
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid = "Verizon_D4SHQL",
-            .password = "hurl-ranch9-raw",
-            .threshold.authmode = WIFI_AUTH_WPA2_PSK,
-            .pmf_cfg = { .capable = true, .required = false }, // Modern security
+            .ssid = "The Glitch",
+            .password = "Lotsofheart",
+            .threshold.authmode = WIFI_AUTH_WPA3_PSK,
+           // .pmf_cfg = { .capable = true, .required = false }, // WPA2
+           .sae_pwe_h2e = WPA3_SAE_PWE_BOTH, //WPA3
+
+           .pmf_cfg = {
+            .capable = true,
+            .required = true  // WPA3 strictly requires PMF
+        },
         },
     };
 

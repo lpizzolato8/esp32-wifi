@@ -15,6 +15,6 @@ void app_main(void) {
 
     wifi_init_sta();
 
-    // Optimization: Only start the network task AFTER connection is confirmed
+    // Only start the network task AFTER connection is confirmed
     xTaskCreate(udp_receive_task, "udp_rx", 4096, NULL, 5, NULL);
 }
