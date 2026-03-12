@@ -53,19 +53,35 @@ IP Address of ESP32 can be found in the monitor section after connection. **STEP
 
 <img width="681" height="35" alt="image" src="https://github.com/user-attachments/assets/ae6445ea-81d3-4479-98b6-999543d33228" />
 
-### 3. Build and Flash ESP32
+## Running and Testing
+
+### 1. Test Output
+Update your credentials in `test_udp.py`:
+
+Value Type,Recommended Safe Range,Precision Notes
+High Precision,"-999,999 to 999,999",Accurate to 2+ decimal places.
+Standard Precision,"±16,777,216",Accurate to the whole number only.
+Scientific Max,±3.4 × 10³⁸,"Extreme range, but will have significant rounding."
+
+```c
+send_binary(msg_type=1, float_value=xx.xx)
+```
+Code above found at line 51
+
+
+### 2. Build and Flash ESP32
 
 Build using the wrench and flash using the lighting bolt
 
 <img width="110" height="41" alt="image" src="https://github.com/user-attachments/assets/746bfac0-9bb8-45ff-bb03-de168acd696f" />
 
-### 4. Run python and Monitor ESP32
+### 3. Run python and Monitor ESP32
 
 Run the python script and click on the monitor below to see the output
 
 <img width="67" height="44" alt="image" src="https://github.com/user-attachments/assets/72e6bad2-b273-4001-8c54-63649045aa8e" />
 
-### 5. Results
+### 4. Results
 
 <img width="785" height="43" alt="image" src="https://github.com/user-attachments/assets/9276ad48-bbbe-4808-bb3f-fbc94b3e041d" />
 
