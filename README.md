@@ -95,5 +95,8 @@ Run the python script and click on the monitor below to see the output
 
 ### 4. Results
 
+<img width="568" height="121" alt="image" src="https://github.com/user-attachments/assets/bb4608b5-c081-4e0d-8fa0-69c4eb2e32fc" />
+
+
 <img width="785" height="43" alt="image" src="https://github.com/user-attachments/assets/9276ad48-bbbe-4808-bb3f-fbc94b3e041d" />
 
