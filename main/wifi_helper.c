@@ -49,16 +49,17 @@ void wifi_init_sta(void) {
 
 
     wifi_config_t wifi_config = {
+
         .sta = {
-            .ssid = "The Glitch",
-            .password = "Lotsofheart",
+            .ssid = "Verizon_D4SHQL",
+            .password = "hurl-ranch9-raw",
 
             //for both
             .threshold.authmode = WIFI_AUTH_WPA2_PSK,
 
-           .sae_pwe_h2e = WPA3_SAE_PWE_BOTH, //WPA3 support
+            .sae_pwe_h2e = WPA3_SAE_PWE_BOTH, //WPA3 support
 
-           .pmf_cfg = {
+            .pmf_cfg = {
             .capable = true,    // PMF for WPA3
             .required = false   // No need for WPA2
         },
@@ -67,6 +68,7 @@ void wifi_init_sta(void) {
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
+    esp_wifi_set_ps(WIFI_PS_NONE);
     ESP_ERROR_CHECK(esp_wifi_start());
 
     xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT, pdFALSE, pdFALSE, portMAX_DELAY);

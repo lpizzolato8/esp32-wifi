@@ -60,20 +60,24 @@ void udp_receive_task(void *pvParameters) {
                 binary_frame_t *pkg = (binary_frame_t *)rx_buffer;
 
                 // Step 1: Check for the Sync Word. 
-                // Note: 0xAA55 in Python might arrive as 0x55AA due to "Endianness"
+                // Note: 0xAA55 in Python might arrive as 0x55AA due to esp32 based off little endian
                 if (pkg->sync_word == 0xAA55 || pkg->sync_word == 0x55AA) {
                     
                     // Step 2: Extract data. 
-                    // Since it's binary, we use memcpy to copy bytes into a variable.
                     float val;
                     memcpy(&val, pkg->payload, sizeof(float));
                     
                     ESP_LOGI(TAG, "Valid Packet Type: %d, Data: %.2f", pkg->type, val);
+
+                    sendto(sock, rx_buffer, len, 0, (struct sockaddr *)&source_addr, socklen); // sends back to the sender
+
                 } else {
                     ESP_LOGW(TAG, "Received junk or wrong sync word: 0x%04X", pkg->sync_word);
                 }
             }
         }
+
+
         // Cleanup if the inner loop fails
         close(sock);
     }
